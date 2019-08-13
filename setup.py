@@ -28,7 +28,7 @@ include_files = ['BluePrints',
 
 options = {'build_exe': {
             'include_files': include_files,
-	      'build_exe': Path[0]+':\\Drive\\OGexe\\OGall\\'
+	      'build_exe': Path[0]+':\\Drive\\OGall\\'
            }}
 
 setup(name = 'OGall',
