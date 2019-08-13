@@ -1,0 +1,1 @@
+pyuic5 interfaceOR.ui -o interfaceOR.py
