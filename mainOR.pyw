@@ -37,7 +37,7 @@ Hash = True
 
 class ExampleApp(QtWidgets.QMainWindow, interfaceOR.Ui_MainWindow):
 	
-	def __init__(self, x, strLG, strY, strZ, strR, strRL, strDT, strJT, strLGRR, strYRR, strZRR, strRRR, strRLRR, strDTRR, strJTRR):
+	def __init__(self, x, strLG, strY, strZ, strR, strRL, strDT, strJT, strLGRR, strYRR, strZRR, strRRR, strRLRR, strDTRR, strJTRR, strDPtmp):
 		super().__init__()
 		self.setupUi(self)
 		self.setWindowIcon(QtGui.QIcon(distr + '\\iconOR.ico'))
@@ -52,6 +52,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOR.Ui_MainWindow):
 		self.RandList = strRL
 		self.DetalText = strDT
 		self.JoinText = strJT
+		self.DPtmp = strDPtmp
 
 
 		self.LuckGlobalRR = strLGRR
@@ -169,6 +170,12 @@ Q: 0	← Качество, Профа и т.д.
 		NumRoll = self.NumRollQt.value()
 		Str = self.StrQt.isChecked()
 		sender = self.sender().text()
+
+		if sender == 'GO':
+			self.DPtmp = DicePull
+		elif sender == 'RR':
+			DicePull = self.DPtmp
+
 		if sender == 'RR':
 			RR = True
 			self.RRstrQt.setEnabled(False)
@@ -283,7 +290,7 @@ Q: 0	← Качество, Профа и т.д.
 # Rolls start
 #
 		while y < NumRoll or Str:
-			if y: # != 0:
+			if y:
 				DetalText += ('\n' * 2)
 
 			DetalText += ('---> Бросок №' + str(y+1) + ' <---\n')
@@ -293,8 +300,7 @@ Q: 0	← Качество, Профа и т.д.
 
 			y += 1
 			Roll = []
-			
-			#JoinText += '[' + str(y) + '] '
+
 			
 			if NumRoll > 1:
 				JoinText += '[' + str(y) + '] '
@@ -304,7 +310,7 @@ Q: 0	← Качество, Профа и т.д.
 			LuckCount = DramCount = DicePullQ = x = 0
 			
 			while x < DicePullTMP + DicePullQ:
-				Space = 7 if (x+1) // 10 else 8 #>= 1 else 8
+				Space = 7 if (x+1) // 10 else 8
 
 				Roll.append(RandList[r])
 
@@ -335,10 +341,10 @@ Q: 0	← Качество, Профа и т.д.
 						 '\tЕдиниц = ' + str(DramCount) + ' \n')
 
 			if LuckDel and LuckCount > 0:
-				DetalText += (' > > Ужасное качество < <\t-1 успех\n')
-				LuckCount -= 1
+				DetalText += (' > > Ужасное качество < <\t-успехи\n')
+				LuckCount -= DramCount
 				if LuckCount < 0: LuckCount = 0
-			
+
 			if OM and LuckCount > 0:
 				DetalText += ('        > > OM < <\t' + str(OM) + ' успех\n')
 				LuckCount += OM
@@ -348,10 +354,10 @@ Q: 0	← Качество, Профа и т.д.
 				LuckCount = -DramCount
 				DetalText += ('      > > Драмат < <\n')
 
-			# elif LuckCount == 0 and y != NumRoll:
-			# 	DetalText += (' > > Успехов не набрано < <\t-1 куб\n')
-			# 	if Str: self.DicePullQt.setValue(DicePull-1)
-			# 	DicePull -= 1
+			elif LuckCount == 0 and y != NumRoll:
+				DetalText += (' > > Успехов не набрано < <\t-1 куб\n')
+				if Str: self.DicePullQt.setValue(DicePull-1)
+				DicePull -= 1
 
 			elif LuckCount >= 5:
 				if NumRoll > 1:
@@ -429,7 +435,7 @@ Q: 0	← Качество, Профа и т.д.
 
 def main():
 	app = QtWidgets.QApplication(sys.argv)  # Новый экземпляр QApplication
-	window = ExampleApp(1, 0, 0, 0, 0, [], '', '', 0, 0, 0, 0, [], '', '') # Создаём объект класса ExampleApp
+	window = ExampleApp(1, 0, 0, 0, 0, [], '', '', 0, 0, 0, 0, [], '', '', 0) # Создаём объект класса ExampleApp
 	window.show()  							# Показываем окно
 	app.exec_()  							# и запускаем приложение
 
