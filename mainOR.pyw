@@ -210,7 +210,12 @@ Q: 0	← Качество, Профа и т.д.
 								' OM:'   + str(OM) +
 												'\r\n')
 				else:
-					JoinText = (self.JoinTextRR +
+					_JT = self.JoinTextRR
+					_JT = _JT.split('\r\n')
+					_JT.pop()
+					_JT.pop()
+					_JT = '\r\n'.join(_JT) + '\r\n'
+					JoinText = (_JT +
 								'\nDice:' + str(DicePull) +
 								' Roll:' + str(NumRoll) +
 								' WP:' + str(WillPower) +
