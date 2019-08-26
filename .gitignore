@@ -1,4 +1,4 @@
-
 # Default ignored files
 .vscode
-__pycache__/
+/__pycache__/
+/distr/__pycache__/
