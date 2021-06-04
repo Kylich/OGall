@@ -64,7 +64,7 @@ for i in ListDirCR:
 
 
 for i in ListDirBP:
-    Str, k, v = [], [], [] 
+    Str, k, v = [], [], []
     for line in open(BluePrints + '\\' + i + '.py'):
         Str.append(line.rstrip())
     for h in Str:
@@ -89,7 +89,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
         self.BPnameQt.currentIndexChanged.connect(self.DelSelectBP)
         self.BPnameQt.currentIndexChanged[str].connect(self.BPnameChange)
         self.ASSnameQt.currentIndexChanged[str].connect(self.ASSnameChange)
-        
+
         self.INTQt.valueChanged.connect(self.NumRollChange)
         self.MERITQt.valueChanged.connect(self.NumRollChange)
         self.TERPQt.stateChanged.connect(self.NumRollChange)
@@ -138,12 +138,12 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
 
         self.NZQt.valueChanged.connect(self.Qminmax)
         self.NZQt.valueChanged.connect(self.DMminmax)
-        
+
         self.WPQt.valueChanged.connect(self.WPChoose)
         self.RRchQt.stateChanged.connect(self.WPChoose)
 
         self.NumRollQt.valueChanged.connect(self.NRmax)
-        
+
         self.MQt.valueChanged.connect(self.DicePullChange)
         self.KTYCQt.stateChanged.connect(self.DicePullChange)
         self.NQt.valueChanged.connect(self.DicePullChange)
@@ -194,7 +194,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
             self.OMMChQt.setEnabled(False)
             self.OMMChQt.setValue(0)
             self.DebaffMRQt.hide()
-            
+
 
     def OMChange(self):
         if self.OMQt.value() == 0:
@@ -210,7 +210,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
         k = self.KQt.value()
         ASS = self.ASSQt.value() if self.ASSchQt.isChecked() else 0
         Pp = 2 if self.RRchQt.isChecked() else 1
-        
+
         zall = NumRoll * k * (DicePull * 2 + ASS) * Pp
 
         if k > 100:
@@ -218,7 +218,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
             self.RunBarQt.setGeometry(QtCore.QRect(10, 480, 71, 281))
             self.RunBarQt.setProperty("value", 0)
             self.RunBarQt.setMaximum(k)
-            
+
             self.RunBarQt.setOrientation(QtCore.Qt.Vertical)
             self.RunBarQt.setTextDirection(QtWidgets.QProgressBar.BottomToTop)
             self.RunBarQt.setObjectName("RunBarQt")
@@ -229,7 +229,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
             self.RunBarQt.setGeometry(QtCore.QRect(10, 480, 71, 281))
             self.RunBarQt.setProperty("value", 0)
             self.RunBarQt.setMaximum(zall)
-            
+
             self.RunBarQt.setOrientation(QtCore.Qt.Vertical)
             self.RunBarQt.setTextDirection(QtWidgets.QProgressBar.BottomToTop)
             self.RunBarQt.setObjectName("RunBarQt")
@@ -246,7 +246,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
         TM = self.TMQt.isChecked()
         TY = self.TYQt.value()
         M = self.MQt.value()
-        
+
         if self.ASSchQt.isChecked():
             ASS = self.ASSQt.value()
             ASSc= self.ASScQt.value()
@@ -256,7 +256,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
 
         WillPower = self.WPQt.value()
         WPend = WillPower
-        
+
         if WillPower > 0 and RR:
             if self.RRQt.isChecked():
                 WP3 = 0
@@ -264,7 +264,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
                 WP3 = 3
                 RR = False
         elif WillPower > 0:
-            WP3 = 3 
+            WP3 = 3
         else:
             WP3 = 0
 
@@ -280,15 +280,15 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
 
         k = self.KQt.value()
         k5 = True if k <= 5 else False
-        
+
         DetalText = ''
         RandList = lall = []
         all = u = d = z = r = 0
-        
+
         DicePullRep = DicePull
         KolTYend = KolTY
         NMend = NumRoll
-        
+
         Pp = 2 if RR else 1
         zall = NumRoll * k * (DicePull*2 + ASS) * Pp
 
@@ -297,7 +297,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
             RandList.append(random.randint(0,9))
             z += 1
 
-        
+
         while all != k:
             if k > 10: self.RunBarQt.setValue(all)
 
@@ -305,13 +305,13 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
                 DetalText += ('\n')
                 DetalText += ('--------------\n' * 3)
                 DetalText += ('\n')
-            
+
             if k >= 2: DetalText += ('--> Попытка №' + str(all+1) + ' <--\n')
 
             all += 1
             LuckGlobal = y = 0
             WPCh, ASSCh = False, False
-            
+
             ASSc = ASSend
             KolTY = KolTYend
             NumRoll = NMend
@@ -321,12 +321,12 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
 # Rolls start
 #
             while y < NumRoll:
-                
+
                 if k5 and y > 0:
                     DetalText += ('\n' * 3)
                 if k5:
                     DetalText += ('---> Бросок №' + str(y+1) + ' <---\n')
-                
+
                 if WillPower > 0:
                     if WP3 == 3:
                         DicePullTMP = DicePull + 3
@@ -340,7 +340,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
                     DicePullTMP += ASS
                 else:
                     ASSCh = True
-                
+
                 DPch = DicePullTMP
 
                 y += 1
@@ -348,19 +348,19 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
                 DicePullQ = LuckCount = DramCount = x = 0
                 while x < DicePullTMP + DicePullQ:
                     Space = 7 if (x+1) // 10 >= 1 else 8
-                    
+
                     Roll.append(RandList[r])
 
                     (ShortText, LongText, LuckCount,
                      DramCount, DicePullQ, DicePullTMP) = (Choosing.main(x, Roll[x], Luck,
-                                                            LuckRR, LuckR, WillPower, DicePullTMP, 
+                                                            LuckRR, LuckR, WillPower, DicePullTMP,
                                                             DicePullQ, LuckCount, RR, DramCount,
                                                             Space, RandList, r))
-                    
+
                     if k5: DetalText += LongText
                     if k5 and x == DPch-1:
                         DetalText += ('--------------\n')
-                    
+
                     r += 1
                     x += 1
 
@@ -375,7 +375,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
                         LuckCount += -TY + CRFT
                         if LuckCount < 0: LuckCount = 0
                         if k5: DetalText += (str(CRFT-TY) + ' успехов за Навык\n')
-                
+
                 if k5: DetalText += ('Успехов = ' + str(LuckCount) + '     Единиц = ' + str(DramCount) + ' \n')
 
                 if DramCount > LuckCount:
@@ -399,7 +399,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
                         EarlyFinish = True
                         EF = y
                         y = NumRoll
-                        
+
                 if WillPower > 0: WillPower += -1
                 if WillPower <= 0 and not WPCh:
                     if k5 and y!= NumRoll:
@@ -415,7 +415,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
                 lall.append(LuckCount)
 
                 Spam, SpamG = (5, 18) if LuckGlobal // 10 >= 1 else (6, 19)
-                
+
 
                 if k5:
                     if y == NumRoll or DicePull == 0:
@@ -441,19 +441,19 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
                     DetalText += ('Справился заранее. Бросков: '+str(EF)+' \n')
                   u += 1
             else: DetalText += ('Успехов = ' + str(LuckGlobal) + ' < < OY = ' + str(OYall) + ' \n> > Зафейлено < <\n')
-            
+
             if k5: DetalText += ('Потрачено деталей: ' + str(KolTY) + ' \n')
-            
+
             if EarlyFinish: NumRoll = EF
-            
+
             WPitogo = NumRoll if WPend > NumRoll else WPend
-            
+
             if k5: DetalText += ('Потрачено ПСВ: ' + str(WPitogo) + ' \n')
-            
+
             if TM: Week = (NumRoll//2 + 1) if NumRoll%2 != 0 else (NumRoll // 2)
             else:  Week = NumRoll
             if k5: DetalText += ('Потрачено недель: '+ str(Week) + ' \n')
-        
+
         DetalText += '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n'
 
         ICh = ('Итоговый шанс: '+str(format((u*100/k),'.2f'))+'%\n')
@@ -468,7 +468,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
         DetalText += UzB + DzB
 
         if not Hash: ItogText = DetalText = 'Мошенник!!!'
-		        
+
         self.DetTextQt.setText(DetalText)
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
@@ -482,7 +482,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
             self.CRnameQt.currentText() == 'Select...' or
             self.BPnameQt.currentText() == 'Select...' or
             self.DicePullQt.value() == 0 or
-            self.NumRollQt.value() == 0 or 
+            self.NumRollQt.value() == 0 or
             (self.OMQt.value() * 2 != self.OMMQt.value() + self.OMRQt.value() and self.NAQt.isChecked())):
                 self.RunQt.setEnabled(False)
                 self.KQt.setEnabled(False)
@@ -496,16 +496,16 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
     def ASSnameChange(self, CurrentASS):
         if CurrentASS in ListDirCR:
             TY=self.TYQt.value()
-            
+
             INT  = CRall[CurrentASS]['INT']
             CRFT = CRall[CurrentASS]['CRFT']
             SINC = CRall[CurrentASS]['SINC']
             COMP = CRall[CurrentASS]['COMP']
             TERP = CRall[CurrentASS]['TERP']
-            
+
             z = 0
             TERP = 2 if TERP else 0
-            
+
             if TY <= 3:
                 self.ASScQt.setValue(INT+CRFT+TERP)
             elif TY == 4:
@@ -569,7 +569,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
             self.ASSnameQt.setEnabled(False)
             self.ASSnameQt.clear()
             self.DebaffASSQt.hide()
-        
+
     def PROFChange(self):
         PROFall = []
         if self.PCRFTQt.isChecked():
@@ -579,14 +579,14 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
         if self.PCOMPQt.isChecked():
             PROFall.append('COMP')
         self.BuffPROFQt.show() if self.MERITchQt.text() in PROFall else self.BuffPROFQt.hide()
-        
+
     def KTYCChange(self):
         if self.TYQt.value() == 7:
             self.KTYCQt.setEnabled(False)
             self.KTYCQt.setChecked(False)
         else:
             self.KTYCQt.setEnabled(True)
-            
+
     def SavingCR(self):
         CRname = self.CRsaveQt.text()[0].upper() + self.CRsaveQt.text()[1:].lower()
 
@@ -644,10 +644,10 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
             self.PSINCQt.setEnabled(False)
             self.PCOMPQt.setEnabled(False)
             QMessageBox.warning(self, "Требуется перезапуск", "Крафтер сохранен. Для дальнейшего изменения крафтеров требуется перезагрузка программы")
-        
+
     def SavingBP(self):
         BPname = self.BPsaveQt.text()[0].upper() + self.BPsaveQt.text()[1:].lower()
-        
+
         if (len(BPname) < 3 or
             not BPname.isalnum() or
             ' ' in BPname):
@@ -674,10 +674,10 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
             OS    = self.OSQt.value()
             DM    = self.DMQt.value()
             NA    = self.NAQt.isChecked()
-            
+
             NA = 1 if NA else 0
             Q = int(Q[0:Q.find(':')])
-            
+
             lines=["BPname = '"+ str(BPname)+"'",
                    'TY = '     + str(TY),
                    'R = '      + str(R),
@@ -744,7 +744,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
         if MERIT == 0: MERIT = -3
 
         DicePull = M - N + MERIT + INT + Other + KTYC - TY
-        
+
         self.DicePullQt.setValue(DicePull)
 
 
@@ -763,10 +763,10 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
                 SINC = CRall[CurrentASS]['SINC']
                 COMP = CRall[CurrentASS]['COMP']
                 TERP = CRall[CurrentASS]['TERP']
-                
+
                 z = 0
                 TERP = 2 if TERP else 0
-                
+
                 if TY <= 3:
                     self.ASScQt.setValue(INT+CRFT+TERP)
                 elif TY == 4:
@@ -788,7 +788,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
             self.DebaffASSQt.show() if self.NumRollQt.value()>self.ASScQt.value() else self.DebaffASSQt.hide()
 
     def WPChoose(self):
-        if self.WPQt.value()>0:  
+        if self.WPQt.value()>0:
             if self.RRchQt.isChecked():
                 self.WP3Qt.setEnabled(True)
                 self.RRQt.setEnabled(True)
@@ -843,17 +843,17 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
         except: Q = 0
 
         OY = TCh + PCh + OS + Q * 2 + DM
-        
+
         if OM > 0: OY += OM + 1
         elif OM < 0: OY += OM - 1
-    	
+
         if OMMch != 0: OY += OMMch
-        
+
         if N > TY: OY += N - TY
 
         self.OYQt.setValue(OY)
         self.DebaffOYQt.show() if OY < 1 else self.DebaffOYQt.hide()
-        
+
 
     def MERITChange(self):
         z = 0
@@ -881,7 +881,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
                     q = True
                 if SINC == z:
                     MeritList.append('SINC')
-                    q = True 
+                    q = True
                 if q: break
                 z += 1
             #q2 = False
@@ -944,7 +944,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
             self.PCRFTQt.setEnabled(True)
             self.PSINCQt.setEnabled(True)
             self.PCOMPQt.setEnabled(True)
-        
+
         elif not self.PROFQt.isChecked():
             self.PCRFTQt.setEnabled(False)
             self.PSINCQt.setEnabled(False)
@@ -952,7 +952,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
             self.PCRFTQt.setChecked(False)
             self.PSINCQt.setChecked(False)
             self.PCOMPQt.setChecked(False)
-        
+
         else:
             self.PCRFTQt.setEnabled(False)
             self.PSINCQt.setEnabled(False)
@@ -974,7 +974,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
             self.TChQt.setMinimum(TY-STR)
             self.TChQt.setMaximum(0)
             self.TQt.setValue(TY-TCh)
-        
+
         elif STR == TY:
             self.TChQt.setEnabled(False)
             self.TChQt.setValue(0)
@@ -986,7 +986,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
             self.TChQt.setMinimum(0)
             self.TChQt.setMaximum(TY-STR)
             self.TQt.setValue(TY-TCh)
-        
+
         self.DebaffSTRQt.show() if STR<self.TQt.value() else self.DebaffSTRQt.hide()
 
     def OMMRMminmax(self):
@@ -1002,7 +1002,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
         elif NA:
             self.OMMQt.setEnabled(True)
             self.OMRQt.setEnabled(True)
-            self.OMMChQt.setEnabled(True) if OMall>0 and self.OMMChQt.value()>0 else self.OMMChQt.setEnabled(False)  
+            self.OMMChQt.setEnabled(True) if OMall>0 and self.OMMChQt.value()>0 else self.OMMChQt.setEnabled(False)
             if self.OMQt.value() > 0:
                 self.OMRQt.setMinimum(0)
                 self.OMRQt.setMaximum(OMall)
@@ -1026,7 +1026,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
 
     def OMminmax(self):
         NZ = self.NZQt.value()
-        
+
         self.OSQt.setMinimum(0)
         self.OSQt.setMaximum(NZ**2)
 
@@ -1049,12 +1049,12 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
         else:
             self.OMMChQt.setEnabled(False)
             self.OMMChQt.setValue(0)
-       
+
         if OMM - self.OMMChQt.value() <= 0:
             self.DebaffOMMQt.hide()
         else:
             self.DebaffOMMQt.show()
-        
+
         if OMM + OMR == OM2 and NA:
             self.DebaffMRQt.hide()
         else:
@@ -1066,9 +1066,9 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
     def PChange(self):
         PCh = self.PChQt.value()
         TY = self.TYQt.value()
-        
+
         P = TY//2
-        
+
         if P:
             self.PChQt.setMinimum(1 - P)
         else:
@@ -1083,7 +1083,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
             self.NZQt.setValue(TY)
         else:
             self.NZQt.setValue(R)
- 
+
 
     def NumRollChange(self):
         if self.TYQt.value != 0:
@@ -1102,7 +1102,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
             self.COMPQt.setEnabled(False)
             self.CRsaveQt.hide()
             self.CRsaveBTNQt.hide()
-    
+
             self.INTQt.setValue(CRall[CurrentCR]['INT'])
             self.CRFTQt.setValue(CRall[CurrentCR]['CRFT'])
             self.SINCQt.setValue(CRall[CurrentCR]['SINC'])
@@ -1133,7 +1133,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
             self.COMPQt.setEnabled(False)
             self.CRsaveQt.hide()
             self.CRsaveBTNQt.hide()
-            
+
 
     def BPnameChange(self, CurrentBP):
         if CurrentBP in ListDirBP:
@@ -1153,9 +1153,9 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
             self.DMQt.setEnabled(False)
             self.BPsaveQt.hide()
             self.BPsaveBTNQt.hide()
-            
+
             #BPall.append([BPname,TY,R,OM,OMM,OMR,OMMCh,Q,STR,TCh,N,PCh,OS,DM])
-            
+
             self.TYQt.setValue(BPall[CurrentBP]['TY'])
             self.RQt.setValue(BPall[CurrentBP]['R'])
             self.PChQt.setValue(BPall[CurrentBP]['PCh'])
@@ -1169,7 +1169,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
             self.STRQt.setValue(BPall[CurrentBP]['STR'])
             self.TChQt.setValue(BPall[CurrentBP]['TCh'])
             self.OSQt.setValue(BPall[CurrentBP]['OS'])
-            
+
             # Q def
             if BPall[CurrentBP]['Q'] == 0:
                 self.QQt.setCurrentText('0: (10)')
@@ -1188,7 +1188,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
             self.NAQt.setEnabled(False)
             self.OMMChQt.setEnabled(False)
             self.TChQt.setEnabled(False)
-        
+
         elif CurrentBP=='New...':
             self.TYQt.setEnabled(True)
             self.RQt.setEnabled(True)
@@ -1248,7 +1248,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
         self.BPnameQt.addItem('Select...')
         self.BPnameQt.addItem('Select...')
         self.BPnameQt.setCurrentIndex(x+1)
-        
+
         self.DebaffSTRQt.hide()
         self.DebaffOMMQt.hide()
         self.BuffPROFQt.hide()
@@ -1263,14 +1263,14 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOC.Ui_MainWindow):
         self.StartBtnQt.hide()
         self.OMQt.setValue(0)
         self.DMQt.setValue(0)
-        
+
     def DelSelectCR(self):
         if self.CRnameQt.findText('Select...') != -1:
             self.CRnameQt.removeItem(len(self.CRnameQt) - 1)
     def DelSelectBP(self):
         if self.BPnameQt.findText('Select...') != -1:
             self.BPnameQt.removeItem(len(self.BPnameQt) - 1)
-    
+
 
 
 def main():

@@ -3,7 +3,7 @@ import sys
 import random
 
 # import hashlib
-import win32clipboard
+# import win32clipboard
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMessageBox, QProgressBar
 
@@ -36,7 +36,7 @@ Hash = True
 # Hash = True if hashCheck == hashSave else False
 
 class ExampleApp(QtWidgets.QMainWindow, interfaceOR.Ui_MainWindow):
-	
+
 	def __init__(self, x, strLG, strY, strZ, strR, strRL, strDT, strJT, strLGRR, strYRR, strZRR, strRRR, strRLRR, strDTRR, strJTRR, strDPtmp):
 		super().__init__()
 		self.setupUi(self)
@@ -62,7 +62,7 @@ class ExampleApp(QtWidgets.QMainWindow, interfaceOR.Ui_MainWindow):
 		self.RandListRR = strRLRR
 		self.DetalTextRR = strDTRR
 		self.JoinTextRR = strJTRR
-		
+
 		self.RunQt.clicked.connect(self.RandomGO)
 		self.LDQt.clicked.connect(self.LuckDiceGO)
 		self.WPchQt.stateChanged.connect(self.WPch)
@@ -95,7 +95,7 @@ Q: 0	← Качество, Профа и т.д.
  2 = 0            +, Q	← “+” - успех”, “Q” - доброс
  3 = 9            +
 --------------		← Начались добросы
-(4 = 5)                
+(4 = 5)
        4 = 1      -, RR-	← ”-” - единица, “RR-” - техническая запись, нет переброса
       >>> OM <<<	← Основной модификатор
 Успех = 10     Драм = 1	← Успехов и единиц на броске
@@ -146,7 +146,7 @@ Q: 0	← Качество, Профа и т.д.
 				DetalText = ': Успехов ' + str(y) + '! (' + str(LDluck) + ')'
 			else:
 				DetalText = ': Успех! (' + str(LDluck) + ')'
-			
+
 		elif dice == 1:
 			DetalText = ': Драмат! (' + str(dice) + ')'
 		else:
@@ -157,14 +157,14 @@ Q: 0	← Качество, Профа и т.д.
 		self.LDcount += 1
 
 	def WPch(self):
-		if self.WPchQt.isChecked(): 
+		if self.WPchQt.isChecked():
 			self.RRchQt.setEnabled(True)
 		else:
 			self.RRchQt.setChecked(False)
-			self.RRchQt.setEnabled(False) 
+			self.RRchQt.setEnabled(False)
 
 	def RandomGO(self):
-		
+
 		WillPower = self.WPchQt.isChecked()
 		DicePull = self.DicePullQt.value()
 		NumRoll = self.NumRollQt.value()
@@ -188,7 +188,7 @@ Q: 0	← Качество, Профа и т.д.
 
 		LuckR, LuckRR, LuckDel = ChoosingQ.select(Q)
 		Luck = LuckRR + LuckR
-		
+
 		if Str:
 			if RR:
 				LuckGlobal = self.LuckGlobalRR
@@ -273,7 +273,7 @@ Q: 0	← Качество, Профа и т.д.
 			DetalText = ''
 			RandList = []
 
-		Pp = 2 if RR else 1			
+		Pp = 2 if RR else 1
 		z_all = NumRoll * DicePull * Pp * 5
 		if z_all < 100: z_all = 100
 
@@ -306,14 +306,14 @@ Q: 0	← Качество, Профа и т.д.
 			y += 1
 			Roll = []
 
-			
+
 			if NumRoll > 1:
 				JoinText += '[' + str(y) + '] '
 			else: JoinText += ''
 
 
 			LuckCount = DramCount = DicePullQ = x = 0
-			
+
 			while x < DicePullTMP + DicePullQ:
 				Space = 7 if (x+1) // 10 else 8
 
@@ -327,11 +327,11 @@ Q: 0	← Качество, Профа и т.д.
 
 				DetalText += LongText
 				JoinText  += ShortText
-				
+
 				if x == DPch-1:
 					DetalText += ('--------------\n')
 					JoinText = JoinText[:-2] + ': '
-				
+
 				r += 1
 				x += 1
 
@@ -341,7 +341,7 @@ Q: 0	← Качество, Профа и т.д.
 				JoinText = JoinText[:-2] + '---> '
 			else:
 				JoinText += '---> '
-			
+
 			DetalText += ('Успехов = ' + str(LuckCount) +
 						 '\tЕдиниц = ' + str(DramCount) + ' \n')
 
@@ -372,12 +372,12 @@ Q: 0	← Качество, Профа и т.д.
 				else:
 					Except = LuckCount - 4
 					DetalText += ('      > > Except < <\t(если бросок длительный: ' + str(LuckCount) + ' это ' + str(LuckCount + Except) + ')\n')
-				
+
 			LuckGlobal += LuckCount
 			JoinText += str(LuckCount) + '\r\n'
 
 			Spam, SpamG = (5, 18) if LuckGlobal//10 else (6, 19) # >= 1 else (6, 19)
-			
+
 			if y == NumRoll or DicePull == 0:
 				DetalText += ('+'*SpamG + '\n')
 			DetalText += ('+'*Spam + ' Успех = ' + str(LuckGlobal) + ' ' + '+'*Spam + '\n')
@@ -392,20 +392,20 @@ Q: 0	← Качество, Профа и т.д.
 #
 # Rolls end
 #
-		
+
 
 
 		if not Str or (y >= NumRoll or DicePull == 0):
 			DetalText += ('\n' * 3)
 			JoinText += 'Итого: ' + str(LuckGlobal) + '\r\n\n'
-			
+
 			if Hash:
 				DetalText = JoinText + DetalText
 			else:
 				DetalText = 'Мошенник!!!'
-			
+
 			self.DetTextQt.setText(DetalText)
-		
+
 			self.LuckGlobal = 0
 			self.y = 0
 			self.z = 0
@@ -414,10 +414,10 @@ Q: 0	← Качество, Профа и т.д.
 			self.DetalText= ''
 			self.JoinText = ''
 
-			win32clipboard.OpenClipboard()
-			win32clipboard.EmptyClipboard()
-			win32clipboard.SetClipboardText(JoinText)
-			win32clipboard.CloseClipboard()
+			# win32clipboard.OpenClipboard()
+			# win32clipboard.EmptyClipboard()
+			# win32clipboard.SetClipboardText(JoinText)
+			# win32clipboard.CloseClipboard()
 
 		else:
 			self.LuckGlobal = LuckGlobal
@@ -427,14 +427,14 @@ Q: 0	← Качество, Профа и т.д.
 			self.RandList = RandList
 			self.DetalText= DetalText
 			self.JoinText = JoinText
-			
+
 			DetalText += ('\n' * 3)
 			JoinText += '> > ' + str(LuckGlobal) + ' < <\r\n\n'
 			if Hash:
 				DetalText = JoinText + DetalText
 			else:
 				DetalText = 'Мошенник!!!'
-			
+
 			self.DetTextQt.setText(DetalText)
 		self.RunQt.setEnabled(True)
 
@@ -446,4 +446,3 @@ def main():
 
 if __name__ == '__main__':  				# Если мы запускаем файл напрямую, а не импортируем
 	main()									# то запускаем функцию main()
-
